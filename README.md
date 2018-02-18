@@ -14,6 +14,6 @@ BTCz.in module for IP.Board Nexus.
  * Inside admin panel goto [Commerce -> Payments -> Settings] -> [Payment Methods -> Create New]
  * Enter all the information and test gateway
 
-
+![settings](https://i.imgur.com/h8WLpGZ.png)
 ![gateway](https://i.imgur.com/0DO8OVV.png)
 ![checkout](https://i.imgur.com/mSvnLRb.png)
