@@ -50,55 +50,54 @@ class _Bitcoinz extends \IPS\nexus\Gateway
         return ($settings['method'] === 'direct');
     }
 
-	public function CreateGateway($transaction, $MerchantAddress, $PingbackUrl, $MerchantEmail, $InvoiceID, $Amount, $Expire, $Secret, $CurrencyCode)
-	{
-		$APIUrl = 'https://btcz.in/api/process';
+    public function CreateGateway($transaction, $MerchantAddress, $PingbackUrl, $MerchantEmail, $InvoiceID, $Amount, $Expire, $Secret, $CurrencyCode)
+    {
+        $APIUrl = 'https://btcz.in/api/process';
 	
-		$fields = array(
-			'f' => "create",
-			'p_addr' => urlencode($MerchantAddress),
-			'p_pingback' => urlencode($PingbackUrl),
-			'p_invoicename' => urlencode($InvoiceID),
-			'p_email' => urlencode($MerchantEmail),
-			'p_secret' => urlencode($Secret),
-			'p_expire' => urlencode($Expire),
-           		'p_success_url' => (string)\IPS\Http\Url::internal(
-                            'app=nexus&module=clients&controller=invoices&id=' . $transaction->invoice->id,
-                            'front',
-                            'clientsinvoice',
-                            array(),
-                            \IPS\Settings::i()->nexus_https
-                        )
-		);
+        $fields = array(
+                'f' => "create",
+                'p_addr' => urlencode($MerchantAddress),
+                'p_pingback' => urlencode($PingbackUrl),
+                'p_invoicename' => urlencode($InvoiceID),
+                'p_email' => urlencode($MerchantEmail),
+                'p_secret' => urlencode($Secret),
+                'p_expire' => urlencode($Expire),
+                'p_success_url' => (string)\IPS\Http\Url::internal(
+                    'app=nexus&module=clients&controller=invoices&id=' . $transaction->invoice->id,
+                    'front',
+                    'clientsinvoice',
+                    array(),
+                    \IPS\Settings::i()->nexus_https
+                )
+        );
 		
-		if($CurrencyCode == "USD")
-			$fields['p_amount_usd'] = urlencode($Amount);
-		else if($CurrencyCode == "EUR")	
-			$fields['p_amount_eur'] = urlencode($Amount);
-		else
-			return "Error: Unsupported currency.";
+        if($CurrencyCode == "USD")
+            $fields['p_amount_usd'] = urlencode($Amount);
+        else if($CurrencyCode == "EUR")	
+            $fields['p_amount_eur'] = urlencode($Amount);
+        else
+            return "Error: Unsupported currency.";
 		
-		$fields_string = "";
-		foreach($fields as $key=>$value) { $fields_string .= $key.'='.$value.'&'; }
-		rtrim($fields_string, '&');
+        $fields_string = "";
+        foreach($fields as $key=>$value) { $fields_string .= $key.'='.$value.'&'; }
+        rtrim($fields_string, '&');
 
-		$ch = curl_init();
-		curl_setopt($ch,CURLOPT_URL, $APIUrl);
-		curl_setopt($ch,CURLOPT_POST, count($fields));
-		curl_setopt($ch,CURLOPT_POSTFIELDS, $fields_string);
-		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true );
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true );
+        $ch = curl_init();
+        curl_setopt($ch,CURLOPT_URL, $APIUrl);
+        curl_setopt($ch,CURLOPT_POST, count($fields));
+        curl_setopt($ch,CURLOPT_POSTFIELDS, $fields_string);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true );
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true );
 			
-		$result = curl_exec($ch);
-		$response = curl_getinfo( $ch );
-		curl_close($ch);
+        $result = curl_exec($ch);
+        $response = curl_getinfo( $ch );
+        curl_close($ch);
 		
-		if($response['http_code'] != 200)
-			return false;
+        if($response['http_code'] != 200)
+            return false;
 		
-		return $result;
-	}
-    /* !Payment Gateway */
+        return $result;
+    }
 
     /**
      * Authorize
@@ -196,7 +195,7 @@ class _Bitcoinz extends \IPS\nexus\Gateway
 	 {
 		$transaction->approve();
 	 } 
-	    else {
+	 else {
 		if ($invoice->status == \IPS\nexus\Invoice::STATUS_PAID) {
 			$transaction->refund();
 			// Update invoice status
