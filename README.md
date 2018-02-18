@@ -15,6 +15,9 @@ BTCz.in module for IP.Board Nexus.
  5. Enter all the information and test gateway
 
 # Preview
+#### Settings
 ![settings](https://i.imgur.com/h8WLpGZ.png)
+#### Checkout Selection
 ![gateway](https://i.imgur.com/0DO8OVV.png)
+#### Checkout iFrame
 ![checkout](https://i.imgur.com/mSvnLRb.png)
