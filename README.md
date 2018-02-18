@@ -13,3 +13,6 @@ BTCz.in module for IP.Board Nexus.
  * Import bitcoinz_lang.sql to the database
  * Inside admin panel goto [Commerce -> Payments -> Settings] -> [Payment Methods -> Create New]
  * Enter all the information and test gateway
+
+
+![gateway](https://i.imgur.com/0DO8OVV.png)
