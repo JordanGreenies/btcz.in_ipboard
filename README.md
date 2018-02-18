@@ -5,6 +5,7 @@ BTCz.in module for IP.Board Nexus.
 ###Versions
 * Requires IP.Board v4.x and IP.Nexus already installed
 * PHP 5.3 or later
+* USD or EUR currency
 
 -Installation-
  * Copy all files to the relative location
