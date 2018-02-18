@@ -8,11 +8,11 @@ BTCz.in module for IP.Board Nexus.
 * USD or EUR currency
 
 # Installation
- * Copy all files to the relative location
- * Go to the database where your forum is installed (using phpmyadmin or other)
- * Import bitcoinz_lang.sql to the database
- * Inside admin panel goto [Commerce -> Payments -> Settings] -> [Payment Methods -> Create New]
- * Enter all the information and test gateway
+ 1. Copy all files to the relative location
+ 2. Go to the database where your forum is installed (using phpmyadmin or other)
+ 3. Import bitcoinz_lang.sql to the database
+ 4. Inside admin panel goto [Commerce -> Payments -> Settings] -> [Payment Methods -> Create New]
+ 5. Enter all the information and test gateway
 
 # Preview
 ![settings](https://i.imgur.com/h8WLpGZ.png)
