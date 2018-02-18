@@ -16,3 +16,4 @@ BTCz.in module for IP.Board Nexus.
 
 
 ![gateway](https://i.imgur.com/0DO8OVV.png)
+![checkout](https://i.imgur.com/mSvnLRb.png)
