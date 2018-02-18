@@ -1,5 +1,5 @@
 # About IP.Board Nexus module
-BTCz.in module for IP.Board Nexus.
+BTCz.in module for IP.Board Nexus with pingback
 
 
 ## Requirements
