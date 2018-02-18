@@ -28,12 +28,10 @@ class _btczPingback extends \IPS\Dispatcher\Controller
     protected function manage()
     {
         try {
-			if(!isset($_POST["data"]))
-				die('No data!');
-			$data = json_decode($_POST["data"]);
-			if(empty($data))
-				die('No data!');
-			
+            if(!isset($_POST["data"])) die('No data!');
+            $data = json_decode($_POST["data"]);
+            if(empty($data)) die('No data!');
+		
             $transaction = \IPS\nexus\Transaction::load($data->invoicename);
         } catch (\OutOfRangeException $e) {
             die('Transaction invalid!');
