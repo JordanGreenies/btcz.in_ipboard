@@ -62,7 +62,7 @@ class _Bitcoinz extends \IPS\nexus\Gateway
 			'p_email' => urlencode($MerchantEmail),
 			'p_secret' => urlencode($Secret),
 			'p_expire' => urlencode($Expire),
-            'p_success_url' => (string)\IPS\Http\Url::internal(
+           		'p_success_url' => (string)\IPS\Http\Url::internal(
                             'app=nexus&module=clients&controller=invoices&id=' . $transaction->invoice->id,
                             'front',
                             'clientsinvoice',
@@ -128,22 +128,23 @@ class _Bitcoinz extends \IPS\nexus\Gateway
 
         $settings = $this->getSettings();
 
-		$RESP =  $this->CreateGateway($transaction, $settings['address'], $settings['pingbackurl'], $settings['email'], $transaction->id, $transaction->amount->amount, 15, $settings['secret_key'], $transaction->currency);
-		$JSON_RESP = json_decode($RESP);
+	$RESP =  $this->CreateGateway($transaction, $settings['address'], $settings['pingbackurl'], $settings['email'], $transaction->id, $transaction->amount->amount, 15, $settings['secret_key'], $transaction->currency);
+	$JSON_RESP = json_decode($RESP);
 
-		if(!empty($JSON_RESP))
-		{
-			$InvoiceURL = "https://btcz.in/invoice?id=".$JSON_RESP->url_id;
-			echo '<iframe id="iFrame" height="800px" width="100%" frameborder="0" src="'.$InvoiceURL.'"></iframe>';
-		}
-		else if(strlen($RESP))
-		{
-			echo $RESP; //Printable error
-		}
-		else
-		{
-			echo "Error: No response from API"; //Unknown error
-		}
+	if(!empty($JSON_RESP))
+	{
+		$InvoiceURL = "https://btcz.in/invoice?id=".$JSON_RESP->url_id;
+		echo '<iframe id="iFrame" height="800px" width="100%" frameborder="0" src="'.$InvoiceURL.'"></iframe>';
+	}
+	else if(strlen($RESP))
+	{
+		echo $RESP; //Printable error
+	}
+	else
+	{
+		echo "Error: No response from API"; //Unknown error
+	}
+	    
         die;
     }
 
@@ -179,32 +180,31 @@ class _Bitcoinz extends \IPS\nexus\Gateway
 
     public function handlerPingback(\IPS\nexus\Transaction $transaction)
     {
-        $settings = $this->getSettings();
-		
-		$Pingback_IP = $this->getRealClientIP();
-		if($Pingback_IP != "164.132.164.206")
-			die("Invalid pingback IP");
-		
-		$data = json_decode($_POST["data"]);	
-		
-		if($data->secret != $settings['secret_key']) //unknown secret
-			die("Invalid secret key");
-		
-		$invoice = $transaction->get_invoice();
-
-		 if($data->state == 5) //success
-		 {
-			$transaction->approve();
-
-		} else {
-			if ($invoice->status == \IPS\nexus\Invoice::STATUS_PAID) {
-				$transaction->refund();
-				// Update invoice status
-				$invoice->markUnpaid(\IPS\nexus\Invoice::STATUS_CANCELED);
-			}
+        $settings = $this->getSettings();	
+	$Pingback_IP = $this->getRealClientIP();
+	    
+	if($Pingback_IP != "164.132.164.206")
+		die("Invalid pingback IP");	
+	    
+	$data = json_decode($_POST["data"]);		
+	if($data->secret != $settings['secret_key']) //unknown secret
+		die("Invalid secret key");
+	    
+	$invoice = $transaction->get_invoice();
+	    
+	 if($data->state == 5) //success
+	 {
+		$transaction->approve();
+	 } 
+	    else {
+		if ($invoice->status == \IPS\nexus\Invoice::STATUS_PAID) {
+			$transaction->refund();
+			// Update invoice status
+			$invoice->markUnpaid(\IPS\nexus\Invoice::STATUS_CANCELED);
 		}
+	 }
 		
-		return self::DEFAULT_PINGBACK_RESPONSE;
+	return self::DEFAULT_PINGBACK_RESPONSE;
     }
 
     public function getRealClientIP()
