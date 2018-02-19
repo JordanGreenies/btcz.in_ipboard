@@ -6,7 +6,7 @@ BTCz.in module for IP.Board Nexus with pingback
 * Requires IP.Board v4.x and IP.Nexus already installed
 * PHP 5.3 or later
 * PHP-cURL
-* USD or EUR currency
+* A store currency listed here: https://api.fixer.io/latest?base=USD
 
 ## Installation
  1. Copy all files to the relative location
