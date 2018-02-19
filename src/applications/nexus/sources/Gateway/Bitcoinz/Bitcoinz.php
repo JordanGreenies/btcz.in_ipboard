@@ -68,15 +68,10 @@ class _Bitcoinz extends \IPS\nexus\Gateway
                     'clientsinvoice',
                     array(),
                     \IPS\Settings::i()->nexus_https
-                )
+                ),
+		'p_currency_code' => urlencode($CurrencyCode),
+		'p_amount' => urlencode($Amount)			
         );
-		
-        if($CurrencyCode == "USD")
-            $fields['p_amount_usd'] = urlencode($Amount);
-        else if($CurrencyCode == "EUR")	
-            $fields['p_amount_eur'] = urlencode($Amount);
-        else
-            return "Error: Unsupported currency.";
 		
         $fields_string = "";
         foreach($fields as $key=>$value) { $fields_string .= $key.'='.$value.'&'; }
