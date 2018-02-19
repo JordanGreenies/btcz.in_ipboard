@@ -133,7 +133,14 @@ class _Bitcoinz extends \IPS\nexus\Gateway
 	if(!empty($JSON_RESP))
 	{
 		$InvoiceURL = "https://btcz.in/invoice?id=".$JSON_RESP->url_id;
-		echo '<iframe id="iFrame" height="800px" width="100%" frameborder="0" src="'.$InvoiceURL.'"></iframe>';
+		echo '<iframe id="iFrame" style="min-height: 725px" width="100%"  frameborder="0" src="'.$InvoiceURL.'" scrolling="no" onload="resizeIframe()"></iframe>';
+		echo "<script type=\"text/javascript\">
+		function resizeIframe() {
+			var obj = document.getElementById(\"iFrame\");
+			obj.style.height = (obj.contentWindow.document.body.scrollHeight) + 'px';
+			setTimeout('resizeIframe()', 200);
+		}
+		</script>";
 	}
 	else if(strlen($RESP))
 	{
